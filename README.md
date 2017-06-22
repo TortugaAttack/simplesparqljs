@@ -42,3 +42,9 @@ For ask:
 ``` javascript
 results // "true" or "false"
 ```
+
+### Reset SELECT Row Pointer
+if you want to start from the begin of the results you can reset the index pointer
+``` javascript
+results.reset();
+```
