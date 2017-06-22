@@ -32,9 +32,10 @@ results.vars //returns the variable used (in the example "s, p, o")
 while(results.hasNext()){ 
   //checks if another row exists.
   results.next(); //incr index to the next row
-  for(var sparqlVar in results.vars){
+  for(i=0;i < results.vars.length;i++) {
     //results.getFromIndex(0); 
-    results.getFromVarName(sparqlVar);
+    results.getFromVarName(results.vars[i]);
+  }
 }
 ```
 For ask:
