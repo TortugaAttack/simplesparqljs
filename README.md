@@ -7,27 +7,27 @@ The usage is quite easy and tried to mirror a little bit the JENA API.
 ## Create Query
 This will just create a query object for itself. It can be queried against different SPARQL enpoints. 
 Currently it will not be parsed if the query is correct
-```
+``` javascript
 var query = createQuery("SELECT * WHERE {?s ?p ?o} LIMIT 10");
 ```
 
 ## Execute Query
 Once created, the query can be executed against a sparql endpoint.
-```
+``` javascript
 query.select("http://dbpedia.org/sparql");
 ```
 or
-```
+``` javascript
 query.ask("http://dbpedia.org/sparql");
 ```
 
 ## Get Results
 Once executed, the results are saved in
-```
+``` javascript
 var results = query.results;
 ```
 For select (iterate over all results):
-```
+``` javascript
 results.vars //returns the variable used (in the example "s, p, o")
 while(results.hasNext()){ 
   //checks if another row exists.
@@ -38,6 +38,6 @@ while(results.hasNext()){
 }
 ```
 For ask:
-```
+``` javascript
 results // "true" or "false"
 ```
