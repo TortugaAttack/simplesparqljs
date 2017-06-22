@@ -34,7 +34,7 @@ while(results.hasNext()){
   results.next(); //incr index to the next row
   for(var sparqlVar in results.vars){
     //results.getFromIndex(0); 
-    results.getFromIndex(sparqlVar);
+    results.getFromVarName(sparqlVar);
 }
 ```
 For ask:
