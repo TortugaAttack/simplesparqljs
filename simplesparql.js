@@ -6,7 +6,7 @@ function createQuery(queryStr2) {
 	results:null,
         addPrefix: function(prefixStr, url){
             var prefix = [prefixStr, url]
-            prefixes.push(prefix);
+            this.prefixes.push(prefix);
         },
         setDefaultGraph: function(graph){
             defaultGraph = graph;
@@ -14,7 +14,7 @@ function createQuery(queryStr2) {
         addPrefixes: function() {
             var newQueryStr = "";
             for(i=0;i<this.prefixes.length;i++){
-                newQueryStr+="PREFIX "+this.prefixes[i][0]+" <"+this.prefixes[i][1]+"> ";
+                newQueryStr+="PREFIX "+this.prefixes[i][0]+": <"+this.prefixes[i][1]+"> ";
             }
             newQueryStr +=" "+this.queryStr;
             return newQueryStr;
@@ -36,7 +36,7 @@ function createQuery(queryStr2) {
             //create URL
             var url = this.createURL(service, newQueryStr);
 	    var ret;
-            httpGetAsync(url, function(response){
+            httpGetAsync(url, this, function(response, query){
 		var jsonResponse = response;
 		query.results = parseJsonResponse(jsonResponse);
 
@@ -47,7 +47,7 @@ function createQuery(queryStr2) {
             var newQueryStr = this.addPrefixes();
             //create URL
             var url = this.createURL(service, newQueryStr);
-            httpGetAsync(url, function(response){
+            httpGetAsync(url, this, function(response, query){
                 var jsonResponse = response;
 		var obj  = JSON.parse(jsonResponse);
            	query.results = obj.boolean;
@@ -114,15 +114,16 @@ function parseJsonResponse(jsonStr){
 }
 
 //props to stackoverflow https://stackoverflow.com/questions/247483/http-get-request-in-javascript#4033310
-function httpGetAsync(url, callback)
+function httpGetAsync(url, query, callback)
 {
     var xmlHttp = new XMLHttpRequest();
 
     xmlHttp.onreadystatechange = function() { 
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-        callback(xmlHttp.responseText);
+        callback(xmlHttp.responseText, query);
     }
     xmlHttp.open("GET", url, true); // true for asynchronous 
     xmlHttp.setRequestHeader('Content-Type', 'application/sparql-results+json')
     xmlHttp.send(null);
 }
+
