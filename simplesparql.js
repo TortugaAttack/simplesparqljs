@@ -38,7 +38,7 @@ function createQuery(queryStr2) {
 	    var ret;
             httpGetAsync(url, function(response){
 		var jsonResponse = response;
-		this.results = parseJsonResponse(jsonResponse);
+		query.results = parseJsonResponse(jsonResponse);
 
 	    });
             
@@ -47,11 +47,10 @@ function createQuery(queryStr2) {
             var newQueryStr = this.addPrefixes();
             //create URL
             var url = this.createURL(service, newQueryStr);
-            var jsonResponse;
             httpGetAsync(url, function(response){
-                jsonResponse = response;
+                var jsonResponse = response;
 		var obj  = JSON.parse(jsonResponse);
-           	this.results = obj.boolean;
+           	query.results = obj.boolean;
             });
             //parse results
             
