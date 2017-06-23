@@ -21,6 +21,14 @@ or
 query.ask("http://dbpedia.org/sparql");
 ```
 
+as the process is async to provide complete control to the user you have to wait for the results
+``` javascript
+//Check if query execution finished
+while(!query.finished) {
+	await sleep(100);
+}
+```
+
 ## Get Results
 Once executed, the results are saved in
 ``` javascript
