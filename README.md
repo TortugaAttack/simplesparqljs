@@ -29,6 +29,14 @@ while(!query.finished) {
 }
 ```
 
+with
+``` javascript
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+```
+
+
 ## Get Results
 Once executed, the results are saved in
 ``` javascript
